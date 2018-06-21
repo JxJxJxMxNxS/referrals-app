@@ -1,4 +1,4 @@
-package referrals;
+package com.Nearsoft.referrals;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
