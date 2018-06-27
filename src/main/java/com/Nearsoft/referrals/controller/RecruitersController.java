@@ -1,19 +1,25 @@
 package com.Nearsoft.referrals.controller;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.List;
+
+import com.Nearsoft.referrals.model.Recruiter;
 import com.Nearsoft.referrals.service.RecruiterService;
-import com.Nearsoft.referrals.model.Recruiter;;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+;
+
 @RestController
-public class RecruitersController{
-    
+public class RecruitersController {
+
     private RecruiterService recruiterService;
-    public RecruitersController(RecruiterService recruiterService){
+
+    public RecruitersController(RecruiterService recruiterService) {
         this.recruiterService = recruiterService;
     }
 
-    @RequestMapping(value="/recruiters")
-    public List<Recruiter> getJobs(){
+    @RequestMapping(value = "/recruiters")
+    public List<Recruiter> getJobs() {
         return recruiterService.getRecruiters();
     }
 }

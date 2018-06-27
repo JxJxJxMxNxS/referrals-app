@@ -3,14 +3,16 @@ package com.Nearsoft.referrals.service.impl;
 import com.Nearsoft.referrals.model.Recruiter;
 import com.Nearsoft.referrals.service.RecruiterService;
 import org.springframework.stereotype.Service;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
-public class RecruiterServiceImpl implements RecruiterService{
-    
+public class RecruiterServiceImpl implements RecruiterService {
+
     @Override
     public List<Recruiter> getRecruiters() {
-        List<Recruiter> recruitersList = new ArrayList<Recruiter>();
+        List<Recruiter> recruitersList = new ArrayList<>();
         Recruiter recruiter1 = new Recruiter();
         Recruiter recruiter2 = new Recruiter();
 

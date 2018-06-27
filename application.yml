@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springbootdb
+    username: jxjxjxm
+    password: JJJM214332
+    generate-dll: true
+
+referrals:
+  github:
+    url: https://raw.githubusercontent.com/Nearsoft/jobs/master/readme.md
