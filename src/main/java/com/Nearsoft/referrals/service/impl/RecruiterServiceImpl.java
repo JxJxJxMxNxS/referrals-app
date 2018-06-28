@@ -40,6 +40,9 @@ public class RecruiterServiceImpl implements RecruiterService {
 
         recruitersList.add(recruiter1);
         recruitersList.add(recruiter2);
+        recruitersList.add(recruiter3);
+        recruitersList.add(recruiter4);
+        recruitersList.add(recruiter5);
 
         return recruitersList;
     }
