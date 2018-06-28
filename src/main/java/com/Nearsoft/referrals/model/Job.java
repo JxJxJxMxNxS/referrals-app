@@ -1,8 +1,9 @@
 package com.Nearsoft.referrals.model;
 
+import com.Nearsoft.referrals.JobDescriptionJsonConverter;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "job")
@@ -12,10 +13,9 @@ public class Job implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private List<String> requirements;
-    private List<String> responsibilities;
-    private List<String> skills;
-    private List<String> generals;
+
+    @Convert(converter = JobDescriptionJsonConverter.class)
+    private JobDescription jobDescription;
 
     public Long getId() {
         return id;
@@ -33,40 +33,14 @@ public class Job implements Serializable {
         this.title = title;
     }
 
-    public List<String> getRequirements() {
-        return requirements;
+    public JobDescription getJobDescription() {
+        return jobDescription;
     }
 
-    public void setRequirements(List<String> requirements) {
-        this.requirements = requirements;
+    public void setJobDescription(JobDescription jobDescription) {
+        this.jobDescription = jobDescription;
     }
 
-    public List<String> getResponsibilities() {
-        return responsibilities;
-    }
-
-    public void setResponsibilities(List<String> responsibilities) {
-        this.responsibilities = responsibilities;
-    }
-
-    public List<String> getGenerals() {
-        return generals;
-    }
-
-    public void setGenerals(List<String> generals) {
-        if (this.generals == null)
-            this.generals = generals;
-        else
-            this.generals.addAll(generals);
-    }
-
-    public List<String> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
-    }
 
     @Override
     public String toString() {

@@ -43,5 +43,9 @@ public class JobDescription {
         this.skills = skills;
     }
 
+    @Override
+    public String toString() {
+        return "Description:{}";
+    }
 
 }

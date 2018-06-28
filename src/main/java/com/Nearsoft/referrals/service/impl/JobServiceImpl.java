@@ -23,8 +23,9 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<Job> getJobs() {
-        List<Job> jobs = new ArrayList<Job>();
+        List<Job> jobs;
         jobs = gitHubJobRepository.retrieveJobs();
+
         return jobs;
     }
 

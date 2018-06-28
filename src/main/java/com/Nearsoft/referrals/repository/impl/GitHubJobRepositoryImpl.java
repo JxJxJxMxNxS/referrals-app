@@ -38,14 +38,12 @@ public class GitHubJobRepositoryImpl implements GitHubJobRepository {
             int finalIndex = rawText.indexOf("## ", startIndex + expressionToSeek.length());
             String jobDescription = rawText.substring(startIndex, finalIndex);
             JobDescription parsedJobDescription = parseDescription(jobDescription);
-            parsedJob.setRequirements(parsedJobDescription.getRequirements());
-            parsedJob.setResponsibilities(parsedJobDescription.getResponsibilities());
-            parsedJob.setSkills(parsedJob.getSkills());
-            parsedJob.setGenerals(parsedJob.getGenerals());
+            parsedJob.setJobDescription(parsedJobDescription);
             parsedJobsList.add(parsedJob);
 
         }
         return parsedJobsList;
+
     }
 
     private String fetchReadme() {

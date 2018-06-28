@@ -11,6 +11,15 @@ public class Recruiter implements Serializable {
     private Long id;
     private String email;
     private String name;
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public Long getId() {
         return id;
@@ -38,7 +47,7 @@ public class Recruiter implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Recrutier[id=%d, naame='%s']", id, name);
+        return String.format("Recrutier[id=%d, name='%s',picture='%s']", id, name, picture);
     }
 
 }
