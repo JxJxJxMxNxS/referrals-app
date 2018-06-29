@@ -23,6 +23,6 @@ public class JobsUpdaterService {
     public void updateLocalRepository() {
         List<Job> jobs = gitHubJobRepository.retrieveJobs();
 
-        //jobs.stream().forEach(job -> jobRepository.save(job));
+        jobs.forEach(job -> jobRepository.save(job));
     }
 }
