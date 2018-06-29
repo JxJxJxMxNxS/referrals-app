@@ -1,0 +1,12 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jjuarez@nearsoft.com
+    password: 214332Jose
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
