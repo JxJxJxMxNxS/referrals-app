@@ -14,10 +14,11 @@ public class MailerController {
         this.mailerService = mailerService;
     }
 
-    @RequestMapping(value = "/sendEmail" , method=RequestMethod.POST)
+    @RequestMapping(value = "/refer" , method=RequestMethod.POST)
     public String sendMail(@RequestParam("recruiter_id") Long recruiter_id,@RequestParam("job_id") Long job_id,
-                           @RequestParam("name") String name,@RequestParam("email") String email) {
-        mailerService.sendEmail(recruiter_id,job_id,name,email);
+                           @RequestParam("referred_name") String referred_name,@RequestParam("referred_email") String referred_email) {
+
+        mailerService.sendEmail(recruiter_id,job_id,referred_name,referred_email);
         return "Email sent";
     }
 }
