@@ -1,6 +1,8 @@
 package com.Nearsoft.referrals.controller;
 
 import com.Nearsoft.referrals.service.MailerService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +17,10 @@ public class MailerController {
     }
 
     @RequestMapping(value = "/refer" , method=RequestMethod.POST)
-    public String sendMail(@RequestParam("recruiter_id") Long recruiter_id,@RequestParam("job_id") Long job_id,
-                           @RequestParam("referred_name") String referred_name,@RequestParam("referred_email") String referred_email) {
+    public ResponseEntity sendMail(@RequestParam("recruiter_id") Long recruiterId, @RequestParam("job_id") Long jobId,
+                                   @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail) {
 
-        mailerService.sendEmail(recruiter_id,job_id,referred_name,referred_email);
-        return "Email sent";
+        mailerService.sendEmail(recruiterId, jobId, referredName, referredEmail);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }
