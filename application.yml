@@ -17,3 +17,7 @@ spring:
   http:
     multipart:
       enabled: false
+filesystem:
+  storage:
+    temporary:
+      directory: ${ROOT_LOCATION}

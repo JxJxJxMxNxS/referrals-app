@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import java.io.IOException;
 
+
 @RestController
 public class MailerController {
     private MailerService mailerService;
@@ -26,10 +27,10 @@ public class MailerController {
     @RequestMapping(value = "/refer" , method=RequestMethod.POST)
     public ResponseEntity sendMail(@RequestParam(value = "resume_file", required = false) MultipartFile file, @RequestParam("recruiter_id") Long recruiterId, @RequestParam("job_id") Long jobId,
                                    @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail) throws MessagingException, IOException {
-        String fileName = null;
-        storageService.store(file);
-        fileName = storageService.getFileName();
-        mailerService.sendEmail(recruiterId, jobId, referredName, referredEmail, fileName, storageService);
+        String fileName = storageService.store(file);
+
+        mailerService.sendEmail(recruiterId, jobId, referredName, referredEmail, fileName);
+
 
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
