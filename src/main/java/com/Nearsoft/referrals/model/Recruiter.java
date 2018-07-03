@@ -47,7 +47,7 @@ public class Recruiter implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Recrutier[id=%d, name='%s',picture='%s']", id, name, picture);
+        return String.format("Recruiter[id=%d, name='%s',picture='%s']", id, name, picture);
     }
 
 }
