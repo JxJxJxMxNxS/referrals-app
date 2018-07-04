@@ -10,3 +10,14 @@ spring:
           auth: true
           starttls:
             enable: true
+  servlet:
+    multipart:
+      max-file-size:  5000KB
+      max-request-size: 5000KB
+  http:
+    multipart:
+      enabled: false
+filesystem:
+  storage:
+    temporary:
+      directory: ${ROOT_LOCATION}
