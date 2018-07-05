@@ -21,3 +21,7 @@ filesystem:
   storage:
     temporary:
       directory: ${ROOT_LOCATION}
+ios:
+  clientId: ${IOS_CLIENT_ID}
+android:
+  clientId: ${ANDROID_CLIENT_ID]
