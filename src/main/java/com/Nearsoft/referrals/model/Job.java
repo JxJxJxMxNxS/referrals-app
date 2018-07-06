@@ -3,6 +3,15 @@ package com.Nearsoft.referrals.model;
 public class Job{
     private String title;
     private JobDescription description;
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle(){
         return title;

@@ -1,7 +1,9 @@
 package com.Nearsoft.referrals.service.impl;
 
+import com.Nearsoft.referrals.model.Job;
 import com.Nearsoft.referrals.model.Recruiter;
 import com.Nearsoft.referrals.repository.RecruiterRepository;
+import com.Nearsoft.referrals.service.JobService;
 import com.Nearsoft.referrals.service.MailerService;
 import com.Nearsoft.referrals.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class MailerServiceImpl implements MailerService {
     private StorageService storageService;
     @Autowired
     private RecruiterRepository recruiterRepository;
+    @Autowired
+    private JobService jobService;
     @Async
     @Override
     public void sendEmail(Long recruiterId, Long jobId, String referredName, String referredEmail, String fileName) throws MessagingException, IOException {
@@ -32,6 +36,7 @@ public class MailerServiceImpl implements MailerService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         Recruiter recruiter=null;
+        Job job=null;
         List<Recruiter> recruiters  = recruiterRepository.retrieveRecruiters();
         for (Recruiter r:recruiters
              ) {
@@ -39,9 +44,16 @@ public class MailerServiceImpl implements MailerService {
                 recruiter=r;
         }
 
+        List<Job> jobs  = jobService.getJobs();
+        for (Job j:jobs
+                ) {
+            if(j.getId().compareTo(jobId)==0)
+                job=j;
+        }
+
         helper.setTo(recruiter.getEmail());
         helper.setSubject("Referred to an opening position");
-        helper.setText("Hello " + recruiter.getName() + ", \n " + referredName + " has been referred for the " + jobId + " position, \n Email: " + referredEmail);
+        helper.setText("Hello " + recruiter.getName() + ", \n " + referredName + " has been referred for the " + job.getTitle() + " position, \n Email: " + referredEmail);
 
         if (fileName != null) {
             FileSystemResource file = storageService.getFileSystemResource(fileName);

@@ -40,9 +40,12 @@ public class JobServiceImpl implements JobService{
         Pattern pattern = Pattern.compile("\\* \\[(.*?)\\]\\(#");
         Matcher matcher = pattern.matcher(rawText);
         String exptoSeek;
+        Long id=new Long(1);
         while(matcher.find()) {
             parsedJob = new Job();
-            parsedJob.setTitle(matcher.group(1));   
+            parsedJob.setTitle(matcher.group(1));
+            parsedJob.setId(id);
+            id++;
             rawText = rawText.replaceAll("###", "---");
             exptoSeek = "## "+parsedJob.getTitle();
             int startIndex = rawText.indexOf(exptoSeek);
