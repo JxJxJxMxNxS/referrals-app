@@ -25,3 +25,19 @@ ios:
   clientId: ${IOS_CLIENT_ID}
 android:
   clientId: ${ANDROID_CLIENT_ID]
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+  signing-key: MaYzkSjmkzPC57L
+  encoding-strength: 256
+  security-realm: Spring Boot JWT Example Realm
+
+  jwt:
+    client-id: testjwtclientid
+    client-secret: XY7kmzoNzl100
+    grant-type: client_credentials
+    scope-read: read
+    scope-write: write
+    resource-ids: testjwtresourceid
