@@ -35,7 +35,7 @@ security:
   security-realm: Spring Boot JWT Example Realm
 
   jwt:
-    client-id: testjwtclientid
+    client-id: 2507188ddojv
     client-secret: XY7kmzoNzl100
     grant-type: client_credentials
     scope-read: read

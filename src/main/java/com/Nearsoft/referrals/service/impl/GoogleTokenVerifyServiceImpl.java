@@ -26,7 +26,7 @@ public class GoogleTokenVerifyServiceImpl implements GoogleTokenVerifyService {
     }
 
     @Override
-    public String verifyToken(String idTokenString) throws GeneralSecurityException, IOException {
+    public Boolean verifyToken(String idTokenString) throws GeneralSecurityException, IOException {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),jacksonFactory)
             // Specify the CLIENT_ID of the apps that accesses the backend:
             .setAudience(Arrays.asList(iosClientId, androidClientId))
@@ -55,8 +55,8 @@ public class GoogleTokenVerifyServiceImpl implements GoogleTokenVerifyService {
 
 
         } else {
-           return "Invalid ID token.";
+           return false;
         }
-        return "Successfully login";
+        return true;
     }
 }

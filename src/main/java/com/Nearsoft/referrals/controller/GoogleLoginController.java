@@ -23,7 +23,9 @@ public class GoogleLoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseEntity login( @RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
-        googleTokenVerifyService.verifyToken(tokenId);
-        return new ResponseEntity(HttpStatus.OK);
+        if(googleTokenVerifyService.verifyToken(tokenId))
+            return new ResponseEntity(HttpStatus.OK);
+        else
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
     }
 }
