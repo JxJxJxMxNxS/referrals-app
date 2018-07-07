@@ -24,8 +24,7 @@ filesystem:
 ios:
   clientId: ${IOS_CLIENT_ID}
 android:
-  clientId: ${ANDROID_CLIENT_ID]
-
+  clientId: ${ANDROID_CLIENT_ID}
 security:
   oauth2:
     resource:
