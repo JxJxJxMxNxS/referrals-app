@@ -2,6 +2,7 @@ package com.Nearsoft.referrals.service.impl;
 
 import com.Nearsoft.referrals.model.Job;
 import com.Nearsoft.referrals.model.Recruiter;
+import com.Nearsoft.referrals.repository.JobRepository;
 import com.Nearsoft.referrals.repository.RecruiterRepository;
 import com.Nearsoft.referrals.service.JobService;
 import com.Nearsoft.referrals.service.MailerService;
@@ -29,27 +30,19 @@ public class MailerServiceImpl implements MailerService {
     private RecruiterRepository recruiterRepository;
     @Autowired
     private JobService jobService;
+    @Autowired
+    private JobRepository jobRepository;
     @Async
     @Override
     public void sendEmail(Long recruiterId, Long jobId, String referredName, String referredEmail, String fileName) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        Recruiter recruiter=null;
-        Job job=null;
-        List<Recruiter> recruiters  = recruiterRepository.retrieveRecruiters();
-        for (Recruiter r:recruiters
-             ) {
-            if(r.getId().compareTo(recruiterId)==0)
-                recruiter=r;
-        }
+        Recruiter recruiter;
+        Job job;
+        recruiter = recruiterRepository.findById(recruiterId).get();
+        job = jobRepository.findById(jobId).get();
 
-        List<Job> jobs  = jobService.getJobs();
-        for (Job j:jobs
-                ) {
-            if(j.getId().compareTo(jobId)==0)
-                job=j;
-        }
 
         helper.setTo(recruiter.getEmail());
         helper.setSubject("Referred to an opening position");
