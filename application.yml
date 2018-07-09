@@ -1,9 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/springbootdb
-    username: jxjxjxm
-    password: JJJM214332
+    url: jdbc:${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
     generate-dll: true
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    hibernate:
+      ddl-auto: create-drop
 
 referrals:
   github:

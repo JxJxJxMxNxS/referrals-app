@@ -14,6 +14,7 @@ public class Job implements Serializable {
     private Long id;
     private String title;
 
+    @Column(name = "jobDescription", length = 102400)
     @Convert(converter = JobDescriptionJsonConverter.class)
     private JobDescription jobDescription;
 
