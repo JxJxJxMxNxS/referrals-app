@@ -16,7 +16,7 @@ public class RecruitersUpdaterService {
     }
 
     @PostConstruct
-    public void updateRecruiters(){
+    public void updateRecruiters() {
         Recruiter recruiter1 = new Recruiter();
         Recruiter recruiter2 = new Recruiter();
         Recruiter recruiter3 = new Recruiter();

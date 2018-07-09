@@ -1,9 +1,6 @@
 package com.Nearsoft.referrals.controller;
 
-import com.Nearsoft.referrals.model.Recruiter;
-import com.Nearsoft.referrals.repository.RecruiterRepository;
 import com.Nearsoft.referrals.service.MailerService;
-import com.Nearsoft.referrals.service.RecruiterService;
 import com.Nearsoft.referrals.service.StorageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +25,7 @@ public class MailerController {
 
     }
 
-    @RequestMapping(value = "/refer" , method=RequestMethod.POST)
+    @RequestMapping(value = "/refer", method = RequestMethod.POST)
     public ResponseEntity sendMail(@RequestParam(value = "resume_file", required = false) MultipartFile file, @RequestParam("recruiter_id") Long recruiterId, @RequestParam("job_id") Long jobId,
 
                                    @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail) throws MessagingException, IOException {

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.util.List;
 
 @Service
 public class MailerServiceImpl implements MailerService {
@@ -32,6 +31,7 @@ public class MailerServiceImpl implements MailerService {
     private JobService jobService;
     @Autowired
     private JobRepository jobRepository;
+
     @Async
     @Override
     public void sendEmail(Long recruiterId, Long jobId, String referredName, String referredEmail, String fileName) throws MessagingException, IOException {
