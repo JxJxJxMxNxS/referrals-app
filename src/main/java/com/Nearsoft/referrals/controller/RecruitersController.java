@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-;
+
 
 @RestController
 public class RecruitersController {
@@ -19,7 +19,7 @@ public class RecruitersController {
     }
 
     @RequestMapping(value = "/recruiters")
-    public List<Recruiter> getJobs() {
+    public List<Recruiter> getRecruiters() {
         return recruiterService.getRecruiters();
     }
 }
