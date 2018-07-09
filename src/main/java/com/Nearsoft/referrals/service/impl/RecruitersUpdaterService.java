@@ -23,6 +23,7 @@ public class RecruitersUpdaterService {
         Recruiter recruiter4 = new Recruiter();
         Recruiter recruiter5 = new Recruiter();
         Recruiter recruiter6 = new Recruiter();
+        Recruiter recruiter7 = new Recruiter();
 
 
         recruiter1.setName("Adriana Quijada");
@@ -54,6 +55,11 @@ public class RecruitersUpdaterService {
         recruiter6.setEmail("pon.dead@gmail.com");
         recruiter6.setPicture("http://i.imgur.com/NXnHirE.jpg");
         recruiterRepository.save(recruiter6);
+
+        recruiter7.setName("Test recruiter2");
+        recruiter7.setEmail("htovar@nearsoft.com");
+        recruiter7.setPicture("http://i.imgur.com/NXnHirE.jpg");
+        recruiterRepository.save(recruiter7);
 
     }
 
