@@ -1,26 +1,24 @@
 package com.Nearsoft.referrals.model;
 
-public class Recruiter{
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "recruiter")
+public class Recruiter implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String email;
     private String name;
     private String picture;
-    
-    public String getName(){
-        return name;
+
+    public String getPicture() {
+        return picture;
     }
 
-    public String getEmail(){
-        return email;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Long getId() {
@@ -31,13 +29,25 @@ public class Recruiter{
         this.id = id;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getName() {
+        return name;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Recruiter[id=%d, name='%s',picture='%s']", id, name, picture);
+    }
+
 }

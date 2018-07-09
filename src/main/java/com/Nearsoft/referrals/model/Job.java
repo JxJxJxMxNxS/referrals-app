@@ -1,9 +1,22 @@
 package com.Nearsoft.referrals.model;
 
-public class Job{
-    private String title;
-    private JobDescription description;
+import com.Nearsoft.referrals.JobDescriptionJsonConverter;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "job")
+public class Job implements Serializable {
+    private static final long serialVersionUID = -3009157732242241606L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String title;
+
+    @Column(name = "jobDescription", length = 102400)
+    @Convert(converter = JobDescriptionJsonConverter.class)
+    private JobDescription jobDescription;
 
     public Long getId() {
         return id;
@@ -13,19 +26,25 @@ public class Job{
         this.id = id;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
-    }
-
-    public JobDescription getDescription(){
-        return description;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setDescription(JobDescription description){
-        this.description = description;
+    public JobDescription getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(JobDescription jobDescription) {
+        this.jobDescription = jobDescription;
+    }
+
+
+    @Override
+    public String toString() {
+        return String.format("Job[id=%d, title='%s']", id, title);
     }
 }

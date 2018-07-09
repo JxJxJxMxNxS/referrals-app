@@ -17,7 +17,35 @@ spring:
   http:
     multipart:
       enabled: false
+  datasource:
+    url: jdbc:${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+    generate-dll: true
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    hibernate:
+      ddl-auto: create-drop
 filesystem:
   storage:
     temporary:
       directory: ${ROOT_LOCATION}
+referrals:
+  github:
+    url: https://raw.githubusercontent.com/Nearsoft/jobs/master/readme.md
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username:
+  password:
+  properties:
+    mail:
+      smtp:
+        starttls:
+          enable: true
+          required: true
+        auth: true
+        connectiontimeout: 5000
+        timeout: 5000
+        writetimeout: 5000
