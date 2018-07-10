@@ -2,14 +2,13 @@ package com.Nearsoft.referrals.controller;
 
 import com.Nearsoft.referrals.service.GoogleTokenVerifyService;
 import com.Nearsoft.referrals.service.TokenGeneratorService;
+import com.google.api.client.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -26,14 +25,13 @@ public class GoogleLoginController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseEntity login( @RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
+    @ResponseBody
+    public String login(@RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
         if(googleTokenVerifyService.verifyToken(tokenId))
         {
-            tokenGeneratorService.generateToken();
-            return new ResponseEntity(HttpStatus.OK);
+            return tokenGeneratorService.generateToken();
         }
-
         else
-            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+            return "";
     }
 }
