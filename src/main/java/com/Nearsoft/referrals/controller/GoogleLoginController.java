@@ -32,6 +32,6 @@ public class GoogleLoginController {
             return tokenGeneratorService.generateToken();
         }
         else
-            return "";
+            return tokenId;
     }
 }
