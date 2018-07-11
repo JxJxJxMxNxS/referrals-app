@@ -22,11 +22,9 @@ public class GoogleLoginController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
-        // if(googleTokenVerifyService.verifyToken(tokenId))
-        // {
+        if (googleTokenVerifyService.verifyToken(tokenId)) {
             return tokenGeneratorService.generateToken();
-        //}
-        //  else
-        // return "";
+        } else
+            return "";
     }
 }
