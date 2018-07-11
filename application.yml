@@ -42,14 +42,16 @@ security:
   oauth2:
     resource:
       filter-order: 3
-  signing-key: MaYzkSjmkzPC57L
+  signing-key: ${APP_SIGNIN_KEY}
   encoding-strength: 256
-  security-realm: Spring Boot JWT Example Realm
+  security-realm: Referrals app security Realm
 
   jwt:
-    client-id: 2507188ddojv
-    client-secret: XY7kmzoNzl100
+    client-id: ${APP_CLIENT_ID}
+    client-secret: ${APP_CLIENT_SECRET}
     grant-type: client_credentials
     scope-read: read
     scope-write: write
-    resource-ids: testjwtresourceid
+    resource-ids: referralsappjwtresourceid
+server:
+  base-url: ${SERVER_BASE_URL}

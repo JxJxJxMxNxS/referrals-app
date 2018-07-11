@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework</groupId>
-    <artifactId>gs-spring-boot</artifactId>
-    <version>0.1.0</version>
+    <groupId>com.nearsoft</groupId>
+    <artifactId>referrals-app</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -23,7 +23,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-            <version>42.2.2</version>
+            <version>${postgresql.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -32,17 +32,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-            <version>1.4.3.RELEASE</version>
+            <version>${spring-boot-starter-mail.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
-            <version>1.23.0</version>
+            <version>${google-api-client.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client-servlet</artifactId>
-            <version>1.23.0</version>
+            <version>${google-api-client-servlet.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,17 +51,23 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
-            <version>1.0.7.RELEASE</version>
+            <version>${spring-security-jwt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
-            <version>2.1.0.RELEASE</version>
+            <version>${spring-security-oauth2.version}</version>
         </dependency>
     </dependencies>
 
     <properties>
         <java.version>1.8</java.version>
+        <spring-security-oauth2.version>2.1.0.RELEASE</spring-security-oauth2.version>
+        <postgresql.version>42.2.2</postgresql.version>
+        <spring-boot-starter-mail.version>1.4.3.RELEASE</spring-boot-starter-mail.version>
+        <google-api-client.version>1.23.0</google-api-client.version>
+        <google-api-client-servlet.version>1.23.0</google-api-client-servlet.version>
+        <spring-security-jwt.version>1.0.7.RELEASE</spring-security-jwt.version>
     </properties>
 
 
