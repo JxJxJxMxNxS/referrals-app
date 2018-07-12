@@ -52,6 +52,8 @@ security:
     grant-type: client_credentials
     scope-read: read
     scope-write: write
-    resource-ids: referralsappjwtresourceid
+    resource-ids:
+      - referralsappjwtresourceid
+      - rrsldplsdcsdcpsd
 server:
   base-url: ${SERVER_BASE_URL}

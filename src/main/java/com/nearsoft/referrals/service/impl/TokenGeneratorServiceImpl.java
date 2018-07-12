@@ -1,6 +1,7 @@
 package com.nearsoft.referrals.service.impl;
 
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
+import com.nearsoft.referrals.model.AppToken;
 import com.nearsoft.referrals.service.TokenGeneratorService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -40,7 +41,8 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-
-        return restTemplate.postForObject(base_url + "oauth/token", request, String.class);
+        AppToken app = restTemplate.postForObject(base_url + "oauth/token", request, AppToken.class);
+        ;
+        return app.getAccess_token();
     }
 }

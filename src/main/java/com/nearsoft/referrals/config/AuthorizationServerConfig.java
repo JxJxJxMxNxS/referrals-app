@@ -1,7 +1,6 @@
 package com.nearsoft.referrals.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -17,41 +16,28 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Value("${security.jwt.client-id}")
-    private String clientId;
 
-    @Value("${security.jwt.client-secret}")
-    private String clientSecret;
+    private JWTSettings jwtSettings;
 
-    @Value("${security.jwt.grant-type}")
-    private String grantType;
-
-    @Value("${security.jwt.scope-read}")
-    private String scopeRead;
-
-    @Value("${security.jwt.scope-write}")
-    private String scopeWrite = "write";
-
-    @Value("${security.jwt.resource-ids}")
-    private String resourceIds;
-
-    @Autowired
     private TokenStore tokenStore;
 
-    @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
 
-
+    public AuthorizationServerConfig(JWTSettings jwtSettings, TokenStore tokenStore, JwtAccessTokenConverter accessTokenConverter) {
+        this.jwtSettings = jwtSettings;
+        this.tokenStore = tokenStore;
+        this.accessTokenConverter = accessTokenConverter;
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
                 .inMemory()
-                .withClient(clientId)
-                .secret("{noop}"+clientSecret)
-                .authorizedGrantTypes(grantType)
-                .scopes(scopeRead, scopeWrite)
-                .resourceIds(resourceIds);
+                .withClient(jwtSettings.getClientId())
+                .secret("{noop}" + jwtSettings.getClientSecret())
+                .authorizedGrantTypes(jwtSettings.getGrantType())
+                .scopes(jwtSettings.getScopeRead(), jwtSettings.getScopeWrite())
+                .resourceIds(jwtSettings.getResourceIds());
     }
 
     @Override

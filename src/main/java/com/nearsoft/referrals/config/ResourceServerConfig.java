@@ -1,7 +1,5 @@
 package com.nearsoft.referrals.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -12,15 +10,19 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    @Autowired
+
     private ResourceServerTokenServices tokenServices;
 
-    @Value("${security.jwt.resource-ids}")
-    private String resourceIds;
+    private JWTSettings jwtSettings;
+
+    public ResourceServerConfig(ResourceServerTokenServices tokenServices, JWTSettings jwtSettings) {
+        this.tokenServices = tokenServices;
+        this.jwtSettings = jwtSettings;
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId(resourceIds).tokenServices(tokenServices);
+        resources.resourceId(jwtSettings.getResourceIds()[0]).tokenServices(tokenServices);
     }
 
     @Override
@@ -29,7 +31,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .requestMatchers()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/actuator/**", "/api-docs/**","/oauth/**","/oauth/authorize**").permitAll()
+                .antMatchers("/oauth/**").permitAll()
                 .antMatchers("/jobs**","/refer", "/recruiters").authenticated();
     }
 }

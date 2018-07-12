@@ -1,7 +1,11 @@
 package com.nearsoft.referrals.controller;
 
-import com.nearsoft.referrals.service.GoogleTokenVerifyService;
+import com.nearsoft.referrals.model.User;
+import com.nearsoft.referrals.repository.UserRepository;
+import com.nearsoft.referrals.service.GoogleUserService;
 import com.nearsoft.referrals.service.TokenGeneratorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -10,21 +14,27 @@ import java.security.GeneralSecurityException;
 
 @RestController
 public class GoogleLoginController {
-    private GoogleTokenVerifyService googleTokenVerifyService;
+    private GoogleUserService googleUserService;
 
     private TokenGeneratorService tokenGeneratorService;
 
-    public GoogleLoginController(GoogleTokenVerifyService googleTokenVerifyService, TokenGeneratorService tokenGeneratorService) {
-        this.googleTokenVerifyService = googleTokenVerifyService;
+    private UserRepository userRepository;
+
+    public GoogleLoginController(GoogleUserService googleUserService, TokenGeneratorService tokenGeneratorService, UserRepository userRepository) {
+        this.googleUserService = googleUserService;
         this.tokenGeneratorService = tokenGeneratorService;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(@RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
-        if (googleTokenVerifyService.verifyToken(tokenId)) {
-            return tokenGeneratorService.generateToken();
+    public ResponseEntity<User> login(@RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
+        User user = googleUserService.verifyTokenAndCreateUser(tokenId);
+        if (user != null) {
+            user.setToken(tokenGeneratorService.generateToken());
+            user = userRepository.save(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         } else
-            return "";
+            return new ResponseEntity<>(user, HttpStatus.FORBIDDEN);
     }
 }

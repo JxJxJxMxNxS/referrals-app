@@ -11,6 +11,7 @@ public class User implements Serializable {
     private Long id;
     private String email;
     private String name;
+    @Column(name = "token", length = 512)
     private String token;
     private String token_device;
 

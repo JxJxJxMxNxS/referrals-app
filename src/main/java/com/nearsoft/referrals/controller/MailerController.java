@@ -27,8 +27,9 @@ public class MailerController {
 
     @RequestMapping(value = "/refer", method = RequestMethod.POST)
     public ResponseEntity sendMail(@RequestParam(value = "resume_file", required = false) MultipartFile file, @RequestParam("recruiter_id") Long recruiterId, @RequestParam("job_id") Long jobId,
-
-                                   @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail) throws MessagingException, IOException {
+                                   @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail,
+                                   @RequestParam("strong_referral_quantity_time") String storngReferralQuantityTime, @RequestParam("strong_referral_ago") String storngReferralago, @RequestParam("strong_referral_where") String storngReferralWhere,
+                                   @RequestParam("strong_referral_why") String storngReferralWhy) throws MessagingException, IOException {
         String fileName = storageService.store(file);
 
         mailerService.sendEmail(recruiterId, jobId, referredName, referredEmail, fileName);
