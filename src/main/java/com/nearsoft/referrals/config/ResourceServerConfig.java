@@ -22,7 +22,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId(jwtSettings.getResourceIds()[0]).tokenServices(tokenServices);
+        if (jwtSettings.getResourceIds().length != 0)
+            resources.resourceId(jwtSettings.getResourceIds()[0]).tokenServices(tokenServices);
+
     }
 
     @Override

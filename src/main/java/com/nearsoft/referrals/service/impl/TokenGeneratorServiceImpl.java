@@ -42,7 +42,7 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 
         RestTemplate restTemplate = new RestTemplate();
         AppToken app = restTemplate.postForObject(base_url + "oauth/token", request, AppToken.class);
-        ;
+
         return app.getAccess_token();
     }
 }
