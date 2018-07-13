@@ -29,10 +29,13 @@ public class GoogleLoginController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<User> login(@RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
+        User databaseUser;
         User user = googleUserService.verifyTokenAndCreateUser(tokenId);
+
         if (user != null) {
+            databaseUser = userRepository.findByemail(user.getEmail());
+            user = databaseUser == null ? userRepository.save(user) : databaseUser;
             user.setToken(tokenGeneratorService.generateToken());
-            user = userRepository.save(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else
             return new ResponseEntity<>(user, HttpStatus.FORBIDDEN);

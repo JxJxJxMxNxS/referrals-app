@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.MissingFormatArgumentException;
 import java.util.Optional;
 
 
@@ -30,8 +31,8 @@ public class MailerController {
     @RequestMapping(value = "/refer", method = RequestMethod.POST)
     public ResponseEntity sendMail(@RequestParam(value = "resume_file", required = false) MultipartFile file, @RequestParam("recruiter_id") Long recruiterId, @RequestParam("job_id") Long jobId,
                                    @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail, @RequestParam("strong_referral") Optional<Boolean> strongReferral,
-                                   @RequestParam("strong_referral_quantity_time") Optional<Integer> storngReferralQuantityTime, @RequestParam("strong_referral_ago") Optional<String> storngReferralago, @RequestParam("strong_referral_where") Optional<String> storngReferralWhere,
-                                   @RequestParam("strong_referral_why") Optional<String> storngReferralWhy) throws MessagingException, IOException {
+                                   @RequestParam("strong_referral_quantity_time") Optional<Integer> strongReferralQuantityTime, @RequestParam("strong_referral_ago") Optional<String> strongReferralago, @RequestParam("strong_referral_where") Optional<String> strongReferralWhere,
+                                   @RequestParam("strong_referral_why") Optional<String> strongReferralWhy) throws MessagingException, IOException {
         String fileName = storageService.store(file);
         ReferBody referBody = new ReferBody();
         referBody.setJob_id(jobId);
@@ -42,10 +43,10 @@ public class MailerController {
 
         strongReferral.ifPresent(isStrong -> {
             referBody.setStrong_referral(isStrong);
-            referBody.setStrong_referral_quantity_time(storngReferralQuantityTime.get());
-            referBody.setStrong_referral_ago(storngReferralago.get());
-            referBody.setStrong_referral_where(storngReferralWhere.get());
-            referBody.setStrong_referral_why(storngReferralWhy.get());
+            referBody.setStrong_referral_quantity_time(strongReferralQuantityTime.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_quantity_time should be present when the parameter string_referral is true")));
+            referBody.setStrong_referral_ago(strongReferralago.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_ago should be present when the parameter string_referral is true")));
+            referBody.setStrong_referral_where(strongReferralWhere.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_where should be present when the parameter string_referral is true")));
+            referBody.setStrong_referral_why(strongReferralWhy.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_why should be present when the parameter string_referral is true")));
         });
         mailerService.sendEmail(referBody, fileName);
 
