@@ -3,12 +3,10 @@ package com.nearsoft.referrals.model;
 import com.nearsoft.referrals.JobDescriptionJsonConverter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "job")
-public class Job implements Serializable {
-    private static final long serialVersionUID = -3009157732242241606L;
+public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

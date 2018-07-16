@@ -3,16 +3,16 @@ package com.nearsoft.referrals.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ReferBody {
-    MultipartFile resume_file;
-    Long recruiter_id;
-    Long job_id;
-    String referred_name;
-    String referred_email;
-    Boolean strong_referral;
-    Integer strong_referral_quantity_time;
-    String strong_referral_ago;
-    String strong_referral_where;
-    String strong_referral_why;
+    private MultipartFile resume_file;
+    private Long recruiter_id;
+    private Long job_id;
+    private String referred_name;
+    private String referred_email;
+    private Boolean strong_referral;
+    private Integer strong_referral_quantity_time;
+    private String strong_referral_ago;
+    private String strong_referral_where;
+    private String strong_referral_why;
 
     public MultipartFile getResume_file() {
         return resume_file;

@@ -52,8 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
         encoders.put("scrypt", new SCryptPasswordEncoder());
         encoders.put("sha256", new StandardPasswordEncoder());
-        encoders.put("null", new SCryptPasswordEncoder());
-        encoders.put(null, new SCryptPasswordEncoder());
 
         PasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(idForEncode, encoders);
         auth.userDetailsService(userDetailsService)

@@ -6,7 +6,6 @@ import com.nearsoft.referrals.repository.JobRepository;
 import com.nearsoft.referrals.service.JobService;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -24,10 +23,7 @@ public class JobServiceImpl implements JobService {
     @Override
     public List<Job> getJobs() {
 
-        List<Job> jobs = new LinkedList<>();
-
-        jobRepository.findAll().forEach(jobs::add);
-        return jobs;
+        return jobRepository.findAll();
     }
 
 

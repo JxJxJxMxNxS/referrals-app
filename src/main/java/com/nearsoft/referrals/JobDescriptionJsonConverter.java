@@ -10,19 +10,13 @@ import java.io.IOException;
 
 public class JobDescriptionJsonConverter implements AttributeConverter<JobDescription, String> {
 
-    private ObjectMapper objectMapper;
-
     public JobDescriptionJsonConverter() {
-    }
-
-    public JobDescriptionJsonConverter(ObjectMapper objectMapper) {
-
-        this.objectMapper = objectMapper;
     }
 
     @Override
     public String convertToDatabaseColumn(JobDescription jobDescription) {
-        this.objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper;
+        objectMapper = new ObjectMapper();
         try {
             return objectMapper.writeValueAsString(jobDescription);
         } catch (JsonProcessingException e) {
@@ -32,7 +26,8 @@ public class JobDescriptionJsonConverter implements AttributeConverter<JobDescri
 
     @Override
     public JobDescription convertToEntityAttribute(String json) {
-        this.objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper;
+        objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(json, JobDescription.class);
         } catch (IOException e) {

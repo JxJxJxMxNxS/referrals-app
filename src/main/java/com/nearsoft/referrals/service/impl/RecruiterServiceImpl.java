@@ -5,7 +5,6 @@ import com.nearsoft.referrals.repository.RecruiterRepository;
 import com.nearsoft.referrals.service.RecruiterService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,9 +18,6 @@ public class RecruiterServiceImpl implements RecruiterService {
 
     @Override
     public List<Recruiter> getRecruiters() {
-        List<Recruiter> recruitersList = new ArrayList<>();
-
-        recruiterRepository.findAll().forEach(recruitersList::add);
-        return recruitersList;
+        return recruiterRepository.findAll();
     }
 }

@@ -42,6 +42,8 @@ public class MailerController {
         referBody.setResume_file(file);
 
         strongReferral.ifPresent(isStrong -> {
+            if (!isStrong)
+                return;
             referBody.setStrong_referral(isStrong);
             referBody.setStrong_referral_quantity_time(strongReferralQuantityTime.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_quantity_time should be present when the parameter string_referral is true")));
             referBody.setStrong_referral_ago(strongReferralago.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_ago should be present when the parameter string_referral is true")));
