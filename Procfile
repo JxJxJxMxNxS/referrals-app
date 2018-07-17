@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/gs-spring-boot-0.1.0.jar --server.port=$PORT
+web: java $JAVA_OPTS -jar target/referrals-app-0.1.0-SNAPSHOT.jar --server.port=$PORT

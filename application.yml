@@ -17,7 +17,43 @@ spring:
   http:
     multipart:
       enabled: false
+  datasource:
+    url: jdbc:${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+    generate-dll: true
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    hibernate:
+      ddl-auto: create-drop
 filesystem:
   storage:
     temporary:
       directory: ${ROOT_LOCATION}
+referrals:
+  github:
+    url: https://raw.githubusercontent.com/Nearsoft/jobs/master/readme.md
+ios:
+  clientId: ${IOS_CLIENT_ID}
+android:
+  clientId: ${ANDROID_CLIENT_ID}
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+  signing-key: ${APP_SIGNIN_KEY}
+  encoding-strength: 256
+  security-realm: Referrals app security Realm
+
+  jwt:
+    client-id: ${APP_CLIENT_ID}
+    client-secret: ${APP_CLIENT_SECRET}
+    grant-type: client_credentials
+    scope-read: read
+    scope-write: write
+    resource-ids:
+      - referralsappjwtresourceid
+      - rrsldplsdcsdcpsd
+server:
+  base-url: ${SERVER_BASE_URL}
