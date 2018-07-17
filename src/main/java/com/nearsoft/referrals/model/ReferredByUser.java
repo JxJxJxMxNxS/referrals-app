@@ -15,6 +15,7 @@ public class ReferredByUser implements Serializable {
     private Long jobId;
     private Long recruiterId;
     private Long userId;
+    private Long companyId;
 
     public Long getId() {
         return id;
@@ -70,6 +71,14 @@ public class ReferredByUser implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     @Override

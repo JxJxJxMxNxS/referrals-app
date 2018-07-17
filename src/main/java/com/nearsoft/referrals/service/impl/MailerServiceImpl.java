@@ -45,10 +45,10 @@ public class MailerServiceImpl implements MailerService {
         recruiter = recruiterRepository.findById(referBody.getRecruiter_id()).get();
         job = jobRepository.findById(referBody.getJob_id()).get();
 
-        bodyMessage = "Hello " + recruiter.getName() + ", \n " + referBody.getReferred_name() + " has been referred for the " + job.getTitle() +
-                " position, \n Email: " + referBody.getReferred_email();
+        bodyMessage = "Hello " + recruiter.getName() + ", \n" + referBody.getReferred_name() + " has been referred for the " + job.getTitle() +
+                " position, \nEmail: " + referBody.getReferred_email();
         if (referBody.getStrong_referral()) {
-            bodyMessage = bodyMessage + "\nWhen: " + referBody.getStrong_referral_quantity_time() + referBody.getStrong_referral_ago() + " ago\n" +
+            bodyMessage = bodyMessage + "\nWhen: " + referBody.getStrong_referral_month() + "/" + referBody.getStrong_referral_year() + "\n" +
                     "Where: " + referBody.getStrong_referral_where() + "\n" +
                     "Why: " + referBody.getStrong_referral_why();
         }
