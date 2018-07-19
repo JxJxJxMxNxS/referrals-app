@@ -5,6 +5,7 @@ import com.nearsoft.referrals.model.ReferBody;
 import com.nearsoft.referrals.service.CompanyService;
 import com.nearsoft.referrals.service.MailerService;
 import com.nearsoft.referrals.service.StorageService;
+import freemarker.template.TemplateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class MailerController {
     public ResponseEntity sendMail(@RequestParam(value = "resume_file", required = false) MultipartFile file, @RequestParam("recruiter_id") Long recruiterId, @RequestParam("job_id") Long jobId,
                                    @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail, @RequestParam("strong_referral") Optional<Boolean> strongReferral,
                                    @RequestParam("strong_referral_year") Optional<Integer> strongReferralYear, @RequestParam("strong_referral_month") Optional<Integer> strongReferralMonth, @RequestParam("strong_referral_where") Optional<String> strongReferralWhere,
-                                   @RequestParam("strong_referral_why") Optional<String> strongReferralWhy) throws MessagingException, IOException {
+                                   @RequestParam("strong_referral_why") Optional<String> strongReferralWhy) throws MessagingException, IOException, TemplateException {
         String fileName = storageService.store(file);
         ReferBody referBody = new ReferBody();
         referBody.setJob_id(jobId);
