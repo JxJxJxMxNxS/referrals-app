@@ -6,6 +6,5 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 public interface GoogleUserService {
-    //comments
     User verifyTokenAndCreateUser(String idTokenString) throws GeneralSecurityException, IOException;
 }
