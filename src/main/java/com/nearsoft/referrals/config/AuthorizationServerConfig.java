@@ -2,6 +2,7 @@ package com.nearsoft.referrals.config;
 
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -23,10 +24,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private JwtAccessTokenConverter accessTokenConverter;
 
-    public AuthorizationServerConfig(JWTSettings jwtSettings, TokenStore tokenStore, JwtAccessTokenConverter accessTokenConverter) {
+    private AuthenticationManager authenticationManager;
+
+    public AuthorizationServerConfig(JWTSettings jwtSettings, TokenStore tokenStore, JwtAccessTokenConverter accessTokenConverter, AuthenticationManager authenticationManager) {
         this.jwtSettings = jwtSettings;
         this.tokenStore = tokenStore;
         this.accessTokenConverter = accessTokenConverter;
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .inMemory()
                 .withClient(jwtSettings.getClientId())
                 .secret("{noop}" + jwtSettings.getClientSecret())
-                .authorizedGrantTypes(jwtSettings.getGrantType())
+                .authorizedGrantTypes("client_credentials", "password")
                 .scopes(jwtSettings.getScopeRead(), jwtSettings.getScopeWrite())
                 .resourceIds(jwtSettings.getResourceIds());
     }
@@ -47,7 +51,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(tokenStore)
                 .accessTokenConverter(accessTokenConverter)
                 .tokenEnhancer(enhancerChain)
-               ;
+                .authenticationManager(authenticationManager);
+
     }
 
 }

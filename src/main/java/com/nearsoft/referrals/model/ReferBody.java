@@ -9,10 +9,11 @@ public class ReferBody {
     private String referred_name;
     private String referred_email;
     private Boolean strong_referral;
-    private Integer strong_referral_quantity_time;
-    private String strong_referral_ago;
+    private Integer strong_referral_year;
+    private Integer strong_referral_month;
     private String strong_referral_where;
     private String strong_referral_why;
+    private Long user_id;
 
     public MultipartFile getResume_file() {
         return resume_file;
@@ -62,20 +63,20 @@ public class ReferBody {
         this.strong_referral = strong_referral;
     }
 
-    public Integer getStrong_referral_quantity_time() {
-        return strong_referral_quantity_time;
+    public Integer getStrong_referral_year() {
+        return strong_referral_year;
     }
 
-    public void setStrong_referral_quantity_time(Integer strong_referral_quantity_time) {
-        this.strong_referral_quantity_time = strong_referral_quantity_time;
+    public void setStrong_referral_year(Integer strong_referral_year) {
+        this.strong_referral_year = strong_referral_year;
     }
 
-    public String getStrong_referral_ago() {
-        return strong_referral_ago;
+    public Integer getStrong_referral_month() {
+        return strong_referral_month;
     }
 
-    public void setStrong_referral_ago(String strong_referral_ago) {
-        this.strong_referral_ago = strong_referral_ago;
+    public void setStrong_referral_month(Integer strong_referral_month) {
+        this.strong_referral_month = strong_referral_month;
     }
 
     public String getStrong_referral_where() {
@@ -92,5 +93,13 @@ public class ReferBody {
 
     public void setStrong_referral_why(String strong_referral_why) {
         this.strong_referral_why = strong_referral_why;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 }

@@ -49,7 +49,7 @@ security:
   jwt:
     client-id: ${APP_CLIENT_ID}
     client-secret: ${APP_CLIENT_SECRET}
-    grant-type: client_credentials
+    grant-type: password
     scope-read: read
     scope-write: write
     resource-ids:
@@ -57,3 +57,4 @@ security:
       - rrsldplsdcsdcpsd
 server:
   base-url: ${SERVER_BASE_URL}
+logo_img_url: nearsoft-logo.png

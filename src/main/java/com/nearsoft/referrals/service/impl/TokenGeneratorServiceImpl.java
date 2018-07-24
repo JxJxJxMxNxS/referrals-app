@@ -25,7 +25,7 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
     }
 
     @Override
-    public String generateToken() {
+    public String generateToken(String email) {
         HttpHeaders headers = new HttpHeaders();
 
         String plainCreds = client_id + ":" + client_secret;
@@ -35,10 +35,12 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 
         headers.add("Authorization", "Basic " + base64Creds);
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-        map.add("grant_type", "client_credentials");
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("grant_type", "password");
+        map.add("username", email);
+        map.add("password", email);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
         RestTemplate restTemplate = new RestTemplate();
         AppToken app = restTemplate.postForObject(base_url + "oauth/token", request, AppToken.class);
