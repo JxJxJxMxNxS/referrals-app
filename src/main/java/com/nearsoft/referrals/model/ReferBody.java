@@ -13,6 +13,7 @@ public class ReferBody {
     private Integer strong_referral_month;
     private String strong_referral_where;
     private String strong_referral_why;
+    private Long user_id;
 
     public MultipartFile getResume_file() {
         return resume_file;
@@ -92,5 +93,13 @@ public class ReferBody {
 
     public void setStrong_referral_why(String strong_referral_why) {
         this.strong_referral_why = strong_referral_why;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 }

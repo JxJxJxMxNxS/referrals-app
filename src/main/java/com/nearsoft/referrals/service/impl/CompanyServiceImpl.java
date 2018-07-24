@@ -23,10 +23,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void storeCompanyIfNotExists(Company company) {
-        Company company1 = companyRepository.findByName(company.getName());
-        if (company1 != null)
-            return;
-        companyRepository.save(company);
+        companyRepository.findByName(company.getName()).orElseGet(() -> companyRepository.save(company));
     }
 
 

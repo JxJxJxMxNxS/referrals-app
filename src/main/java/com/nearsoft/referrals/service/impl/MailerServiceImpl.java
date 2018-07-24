@@ -11,6 +11,7 @@ import com.nearsoft.referrals.service.StorageService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -35,6 +36,8 @@ public class MailerServiceImpl implements MailerService {
     private JobService jobService;
     private JobRepository jobRepository;
     private Configuration freemarkerConfig;
+    @Value("${logo_img_url}")
+    private String logo_img_url;
 
     public MailerServiceImpl(JavaMailSender emailSender, StorageService storageService, RecruiterRepository recruiterRepository,
                              JobService jobService, JobRepository jobRepository, Configuration freemarkerConfig) {
@@ -53,7 +56,7 @@ public class MailerServiceImpl implements MailerService {
         MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
         String bodyMessage;
-        helper.addInline("logo.png", new ClassPathResource("nearsoft-logo.png"));
+        helper.addInline("logo.png", new ClassPathResource(logo_img_url));
         Recruiter recruiter;
         Job job;
 

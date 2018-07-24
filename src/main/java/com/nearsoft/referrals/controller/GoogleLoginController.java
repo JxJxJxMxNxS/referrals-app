@@ -35,7 +35,7 @@ public class GoogleLoginController {
         if (user != null) {
             databaseUser = userRepository.findByemail(user.getEmail());
             user = databaseUser == null ? userRepository.save(user) : databaseUser;
-            user.setToken(tokenGeneratorService.generateToken());
+            user.setToken(tokenGeneratorService.generateToken(user.getEmail()));
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else
             return new ResponseEntity<>(user, HttpStatus.FORBIDDEN);

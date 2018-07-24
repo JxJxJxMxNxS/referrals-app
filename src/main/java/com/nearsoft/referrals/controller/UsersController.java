@@ -1,28 +1,24 @@
 package com.nearsoft.referrals.controller;
 
-import com.nearsoft.referrals.service.UsersService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.nearsoft.referrals.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @RestController
 public class UsersController {
 
-    private UsersService usersService;
+    private UserService userService;
 
-    public UsersController(UsersService usersService) {
-        this.usersService = usersService;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
 
-    @RequestMapping(value = "/users/register", method = RequestMethod.POST)
-    public ResponseEntity registerUser(@RequestParam("email") String email, @RequestParam("name") String name) {
-        usersService.registerUser(email, name);
-        return new ResponseEntity(HttpStatus.CREATED);
+    @RequestMapping(value = "/user")
+    String getUser(Principal principal) {
+        return principal.getName();
     }
-
 
 }

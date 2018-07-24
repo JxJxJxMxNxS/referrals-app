@@ -2,9 +2,8 @@ package com.nearsoft.referrals.controller;
 
 import com.nearsoft.referrals.model.Company;
 import com.nearsoft.referrals.model.ReferBody;
-import com.nearsoft.referrals.service.CompanyService;
-import com.nearsoft.referrals.service.MailerService;
-import com.nearsoft.referrals.service.StorageService;
+import com.nearsoft.referrals.model.User;
+import com.nearsoft.referrals.service.*;
 import freemarker.template.TemplateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.MissingFormatArgumentException;
 import java.util.Optional;
 
@@ -25,18 +25,23 @@ public class MailerController {
     private MailerService mailerService;
     private StorageService storageService;
     private CompanyService companyService;
+    private ReferredByUserService referredByUserService;
+    private UserService userService;
 
-    public MailerController(MailerService mailerService, StorageService storageService, CompanyService companyService) {
+
+    public MailerController(MailerService mailerService, StorageService storageService, CompanyService companyService, ReferredByUserService referredByUserService, UserService userService) {
         this.mailerService = mailerService;
         this.storageService = storageService;
         this.companyService = companyService;
+        this.referredByUserService = referredByUserService;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/refer", method = RequestMethod.POST)
     public ResponseEntity sendMail(@RequestParam(value = "resume_file", required = false) MultipartFile file, @RequestParam("recruiter_id") Long recruiterId, @RequestParam("job_id") Long jobId,
                                    @RequestParam("referred_name") String referredName, @RequestParam("referred_email") String referredEmail, @RequestParam("strong_referral") Optional<Boolean> strongReferral,
                                    @RequestParam("strong_referral_year") Optional<Integer> strongReferralYear, @RequestParam("strong_referral_month") Optional<Integer> strongReferralMonth, @RequestParam("strong_referral_where") Optional<String> strongReferralWhere,
-                                   @RequestParam("strong_referral_why") Optional<String> strongReferralWhy) throws MessagingException, IOException, TemplateException {
+                                   @RequestParam("strong_referral_why") Optional<String> strongReferralWhy, Principal principal) throws MessagingException, IOException, TemplateException {
         String fileName = storageService.store(file);
         ReferBody referBody = new ReferBody();
         referBody.setJob_id(jobId);
@@ -57,6 +62,11 @@ public class MailerController {
             company.setName(referBody.getStrong_referral_where());
             companyService.storeCompanyIfNotExists(company);
         });
+
+
+        User user = userService.getPrincipalUser(principal.getName());
+        referBody.setUser_id(user.getId());
+        referredByUserService.storeReferred(referBody);
 
 
         mailerService.sendEmail(referBody, fileName);
