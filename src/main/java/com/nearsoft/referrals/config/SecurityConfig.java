@@ -87,11 +87,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return converter;
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/login");
-    }
-
     @Bean
     public TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
