@@ -36,6 +36,8 @@ referrals:
     url: https://raw.githubusercontent.com/JXJXJXMXNXS/referrals-test-jobs/master/README.md
 ios:
   clientId: ${IOS_CLIENT_ID}
+  apnPassword: ${APN_PASSWORD}
+  certificateName: ${IOS_CERTIFICATE_NAME}
 android:
   clientId: ${ANDROID_CLIENT_ID}
 security:

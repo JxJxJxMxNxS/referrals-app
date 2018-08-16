@@ -62,6 +62,12 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.fernandospr</groupId>
+            <artifactId>javapns-jdk16</artifactId>
+            <version>${javapns-jdk16.version}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
@@ -72,6 +78,7 @@
         <google-api-client.version>1.23.0</google-api-client.version>
         <google-api-client-servlet.version>1.23.0</google-api-client-servlet.version>
         <spring-security-jwt.version>1.0.7.RELEASE</spring-security-jwt.version>
+        <javapns-jdk16.version>2.3.1</javapns-jdk16.version>
     </properties>
 
 

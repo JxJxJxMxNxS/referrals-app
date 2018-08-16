@@ -15,7 +15,6 @@ public class JobsController {
     private JobService jobService;
     private JobsUpdaterService jobsUpdaterService;
 
-
     public JobsController(JobService jobService, JobsUpdaterService jobsUpdaterService) {
         this.jobService = jobService;
         this.jobsUpdaterService = jobsUpdaterService;
@@ -30,5 +29,6 @@ public class JobsController {
     public void updateJobs() {
         jobsUpdaterService.updateLocalRepository();
     }
+
 
 }
