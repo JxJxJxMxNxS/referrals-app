@@ -40,7 +40,10 @@ public class JobDescription {
     }
 
     public void setSkills(List<String> skills) {
-        this.skills = skills;
+        if (this.skills == null)
+            this.skills = skills;
+        else
+            this.skills.addAll(skills);
     }
 
     @Override

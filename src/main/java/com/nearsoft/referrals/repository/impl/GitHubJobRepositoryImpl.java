@@ -14,10 +14,11 @@ import java.util.regex.Pattern;
 
 @Repository
 public class GitHubJobRepositoryImpl implements GitHubJobRepository {
-    private static final String EXPRESSION_TO_FIND_JOB_TITLES = "\\* \\[(.*?)\\]\\(#";
+    private static final String EXPRESSION_TO_FIND_JOB_TITLES = "\n## (.*?)\n";
     private static final String REQUIREMENTS = "Requirements";
     private static final String RESPONSIBILITIES = "Responsibilities";
     private static final String SKILLS = "Skills";
+    private static final String EXCLUDED_STRINGS = "Follow us,Our openings,Credit";
     @Value("${referrals.github.url}")
     private String gitUrl;
 
@@ -30,16 +31,19 @@ public class GitHubJobRepositoryImpl implements GitHubJobRepository {
 
         while (matcher.find()) {
             Job parsedJob = new Job();
+            String jobtitle = matcher.group(1);
+            if (!EXCLUDED_STRINGS.contains(jobtitle)) {
+                parsedJob.setTitle(jobtitle);
+                rawText = rawText.replaceAll("###", "---");
+                expressionToSeek = "## " + parsedJob.getTitle();
+                int startIndex = rawText.indexOf(expressionToSeek);
+                int finalIndex = rawText.indexOf("## ", startIndex + expressionToSeek.length());
+                String jobDescription = rawText.substring(startIndex, finalIndex);
+                JobDescription parsedJobDescription = parseDescription(jobDescription);
+                parsedJob.setJobDescription(parsedJobDescription);
+                parsedJobsList.add(parsedJob);
+            }
 
-            parsedJob.setTitle(matcher.group(1));
-            rawText = rawText.replaceAll("###", "---");
-            expressionToSeek = "## " + parsedJob.getTitle();
-            int startIndex = rawText.indexOf(expressionToSeek);
-            int finalIndex = rawText.indexOf("## ", startIndex + expressionToSeek.length());
-            String jobDescription = rawText.substring(startIndex, finalIndex);
-            JobDescription parsedJobDescription = parseDescription(jobDescription);
-            parsedJob.setJobDescription(parsedJobDescription);
-            parsedJobsList.add(parsedJob);
 
         }
         return parsedJobsList;

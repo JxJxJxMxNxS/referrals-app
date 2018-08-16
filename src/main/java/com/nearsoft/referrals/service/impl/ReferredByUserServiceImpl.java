@@ -8,6 +8,8 @@ import com.nearsoft.referrals.repository.ReferredByUserRepository;
 import com.nearsoft.referrals.service.ReferredByUserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReferredByUserServiceImpl implements ReferredByUserService {
 
@@ -36,5 +38,10 @@ public class ReferredByUserServiceImpl implements ReferredByUserService {
         referredByUser.setUserId(referBody.getUser_id());
 
         referredByUserRepository.save(referredByUser);
+    }
+
+    @Override
+    public List<ReferredByUser> findByReferUser(String email) {
+        return null;
     }
 }
