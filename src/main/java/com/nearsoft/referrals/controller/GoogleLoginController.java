@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Optional;
 
 
 @RestController
@@ -28,11 +29,12 @@ public class GoogleLoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<User> login(@RequestParam("token_id") String tokenId) throws GeneralSecurityException, IOException {
+    public ResponseEntity<User> login(@RequestParam("token_id") String tokenId, @RequestParam(value = "token_device") Optional<String> tokenDevice) throws GeneralSecurityException, IOException {
         User databaseUser;
         User user = googleUserService.verifyTokenAndCreateUser(tokenId);
 
         if (user != null) {
+            user.setToken_device(tokenDevice.get());
             databaseUser = userRepository.findByemail(user.getEmail());
             user = databaseUser == null ? userRepository.save(user) : databaseUser;
             user.setToken(tokenGeneratorService.generateToken(user.getEmail()));
