@@ -33,7 +33,7 @@ filesystem:
       directory: ${ROOT_LOCATION}
 referrals:
   github:
-    url: https://raw.githubusercontent.com/Nearsoft/jobs/master/readme.md
+    url: https://raw.githubusercontent.com/JXJXJXMXNXS/referrals-test-jobs/master/README.md
 ios:
   clientId: ${IOS_CLIENT_ID}
 android:

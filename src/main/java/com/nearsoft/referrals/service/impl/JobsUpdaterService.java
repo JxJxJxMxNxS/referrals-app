@@ -23,6 +23,9 @@ public class JobsUpdaterService {
     public void updateLocalRepository() {
         List<Job> jobs = gitHubJobRepository.retrieveJobs();
 
-        jobs.forEach(job -> jobRepository.save(job));
+        jobs.forEach((job) -> {
+            if (jobRepository.findByTitle(job.getTitle()).size() == 0)
+                jobRepository.save(job);
+        });
     }
 }
