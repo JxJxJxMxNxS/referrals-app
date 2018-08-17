@@ -12,7 +12,7 @@ import java.util.List;
 public interface ReferredByUserRepository extends JpaRepository<ReferredByUser, Long> {
     ReferredByUser findByEmail(String email);
 
-    @Query(value = "SELECT referred FROM ReferredByUser referred WHERE referred.email = :email")
-    List<ReferredByUser> findByReferUser(@Param("email") String email);
+    @Query(value = "SELECT referred FROM ReferredByUser referred WHERE referred.userId = :userId")
+    List<ReferredByUser> findByReferUser(@Param("userId") Long userId);
 
 }

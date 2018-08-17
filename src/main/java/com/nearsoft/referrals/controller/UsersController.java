@@ -30,8 +30,7 @@ public class UsersController {
 
     @RequestMapping(value = "/referreds")
     ResponseEntity<List<ReferredByUser>> referreds(Principal principal) {
-
-        return new ResponseEntity<>(referredByUserRepository.findByReferUser(principal.getName()), HttpStatus.OK);
+        return new ResponseEntity<>(referredByUserRepository.findByReferUser(userService.getPrincipalUser(principal.getName()).getId()), HttpStatus.OK);
     }
 
 }

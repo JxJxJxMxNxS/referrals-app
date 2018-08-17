@@ -29,7 +29,7 @@ public class GoogleLoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<User> login(@RequestParam("token_id") String tokenId, @RequestParam(value = "token_device") Optional<String> tokenDevice) throws GeneralSecurityException, IOException {
+    public ResponseEntity<User> login(@RequestParam("token_id") String tokenId, @RequestParam(value = "token_device", required = false) Optional<String> tokenDevice) throws GeneralSecurityException, IOException {
         User databaseUser;
         User user = googleUserService.verifyTokenAndCreateUser(tokenId);
 
