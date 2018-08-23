@@ -35,7 +35,6 @@ public class PushNotificationServiceImpl implements PushNotificationService {
             payload.addBadge(1);
             payload.addSound("default");
             payload.addCustomDictionary("id", "1");
-            System.out.println(payload.toString());
             List<PushedNotification> NOTIFICATIONS = Push.payload(payload, iosCertificateName, apnPassword, false, tokenDevices);
             for (PushedNotification NOTIFICATION : NOTIFICATIONS) {
                 if (NOTIFICATION.isSuccessful()) {
@@ -51,11 +50,11 @@ public class PushNotificationServiceImpl implements PushNotificationService {
                 }
             }
         } catch (CommunicationException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         } catch (KeystoreException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         } catch (JSONException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 }

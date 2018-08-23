@@ -38,7 +38,8 @@ public class JobsUpdaterService {
         List<User> users = userRepository.findAll();
         List<String> tokenDevices = new LinkedList<>();
         users.forEach(user -> {
-            if (user.getToken_device() != null) tokenDevices.add(user.getToken_device());
+            if (user.getToken_device() != null && user.getLogged())
+                tokenDevices.add(user.getToken_device());
         });
         this.pushNotificationService.sendNotification(tokenDevices);
     }

@@ -15,6 +15,7 @@ public class User implements Serializable {
     @Column(name = "token", length = 512)
     private String token;
     private String token_device;
+    private Boolean logged;
 
     public Long getId() {
         return id;
@@ -56,12 +57,23 @@ public class User implements Serializable {
         this.token_device = token_device;
     }
 
+    public Boolean getLogged() {
+        return logged;
+    }
+
+    public void setLogged(Boolean logged) {
+        this.logged = logged;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
+                ", token='" + token + '\'' +
+                ", token_device='" + token_device + '\'' +
+                ", logged=" + logged +
                 '}';
     }
 }

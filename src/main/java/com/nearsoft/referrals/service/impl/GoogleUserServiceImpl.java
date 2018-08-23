@@ -31,7 +31,7 @@ public class GoogleUserServiceImpl implements GoogleUserService {
     }
 
     @Override
-    public User verifyTokenAndCreateUser(String idTokenString) throws GeneralSecurityException, IOException {
+    public User verifyTokenAndCreateUser(String idTokenString) throws GeneralSecurityException, IOException, ReferralsAppException {
         User user;
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), jacksonFactory)
                 .setAudience(Arrays.asList(iosClientId, androidClientId))
