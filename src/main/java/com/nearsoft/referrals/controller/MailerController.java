@@ -5,6 +5,8 @@ import com.nearsoft.referrals.model.ReferBody;
 import com.nearsoft.referrals.model.User;
 import com.nearsoft.referrals.service.*;
 import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,7 @@ public class MailerController {
     private CompanyService companyService;
     private ReferredByUserService referredByUserService;
     private UserService userService;
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(MailerController.class);
 
     public MailerController(MailerService mailerService, StorageService storageService, CompanyService companyService, ReferredByUserService referredByUserService, UserService userService) {
         this.mailerService = mailerService;
@@ -50,7 +52,12 @@ public class MailerController {
         referBody.setReferred_email(referredEmail);
         referBody.setResume_file(file);
 
+        User user = userService.getPrincipalUser(principal.getName());
+        referBody.setUser_id(user.getId());
+
+        LOGGER.trace("Referring a person with this data: {}", referBody);
         strongReferral.ifPresent(isStrong -> {
+            LOGGER.trace("The referred was a strong referral");
             if (!isStrong)
                 return;
             referBody.setStrong_referral(isStrong);
@@ -58,20 +65,25 @@ public class MailerController {
             referBody.setStrong_referral_month(strongReferralMonth.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_month should be present when the parameter string_referral is true")));
             referBody.setStrong_referral_where(strongReferralWhere.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_where should be present when the parameter string_referral is true")));
             referBody.setStrong_referral_why(strongReferralWhy.orElseThrow(() -> new MissingFormatArgumentException("strong_referral_why should be present when the parameter string_referral is true")));
+
+
             Company company = new Company();
             company.setName(referBody.getStrong_referral_where());
+            LOGGER.trace("Trying to store the company: {}", company);
             companyService.storeCompanyIfNotExists(company);
+            LOGGER.trace("Company : {} successfully stored", company);
+            LOGGER.info("The user: {} stored the company: {}", user, company);
         });
 
 
-        User user = userService.getPrincipalUser(principal.getName());
-        referBody.setUser_id(user.getId());
+        LOGGER.trace("Trying to store the referred: {}", referBody);
         referredByUserService.storeReferred(referBody);
+        LOGGER.trace("Successfully sotred the referred: {}", referBody);
 
-
+        LOGGER.trace("Trying to send the email to the recruiter");
         mailerService.sendEmail(referBody, fileName);
-
-
+        LOGGER.trace("Email successfully sent");
+        LOGGER.info("The user: {} referred {}:", user, referBody);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

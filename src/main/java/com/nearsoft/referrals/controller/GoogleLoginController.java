@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 public class GoogleLoginController {
     public static final String LOGOUT_SUCCESSFULLY_MESSAGE = "Logout successfully";
-    public static final String ERROR_LOGOUT_MESSAGE = "An error occurred when trying to logout, try again";
+    public static final String ERROR_LOGOUT_MESSAGE = "An error occurred when trying to logout: User not found, try again";
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleLoginController.class);
     private GoogleUserService googleUserService;
     private TokenGeneratorService tokenGeneratorService;
@@ -39,11 +39,16 @@ public class GoogleLoginController {
         User user = userRepository.findByemail(principal.getName());
 
         if (user != null) {
+            LOGGER.trace("Database user: {}", user);
             user.setLogged(false);
-            userRepository.save(user);
+            user = userRepository.save(user);
+            LOGGER.trace("Updated user: {}", user);
+            LOGGER.info("User {} successfully logged out", user);
             return new ResponseEntity<>(LOGOUT_SUCCESSFULLY_MESSAGE, HttpStatus.OK);
-        } else
+        } else {
             return new ResponseEntity<>(ERROR_LOGOUT_MESSAGE, HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @ResponseBody
@@ -57,20 +62,23 @@ public class GoogleLoginController {
             LOGGER.warn("An error occurred during the login", referralsAppException);
             return new ResponseEntity(referralsAppException.getMessage(), HttpStatus.FORBIDDEN);
         }
-
-
         if (user != null) {
+            LOGGER.trace("Google User: {}", user);
             databaseUser = userRepository.findByemail(user.getEmail());
+
             if (databaseUser != null) {
+                LOGGER.trace("Database user: {}", databaseUser);
                 user = databaseUser;
             }
             user.setLogged(true);
             if (tokenDevice.isPresent() && tokenDevice.get().compareTo("null") != 0) {
                 user.setToken_device(tokenDevice.get());
             }
-            userRepository.save(user);
+            user = userRepository.save(user);
             user.setToken(tokenGeneratorService.generateToken(user.getEmail()));
 
+            LOGGER.trace("User saved: {}", user);
+            LOGGER.info("User {} successfully logged in", user);
             return new ResponseEntity(user, HttpStatus.OK);
         } else
             return new ResponseEntity(user, HttpStatus.FORBIDDEN);
