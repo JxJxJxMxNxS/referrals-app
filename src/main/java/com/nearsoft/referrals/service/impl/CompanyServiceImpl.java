@@ -1,6 +1,7 @@
 package com.nearsoft.referrals.service.impl;
 
 import com.nearsoft.referrals.model.Company;
+import com.nearsoft.referrals.model.MostReferredCompany;
 import com.nearsoft.referrals.repository.CompanyRepository;
 import com.nearsoft.referrals.service.CompanyService;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,8 @@ public class CompanyServiceImpl implements CompanyService {
         companyRepository.findByName(company.getName()).orElseGet(() -> companyRepository.save(company));
     }
 
-
+    @Override
+    public List<MostReferredCompany> getMostReferredCompanies() {
+        return companyRepository.getMostCommonCompanies();
+    }
 }

@@ -1,6 +1,7 @@
 package com.nearsoft.referrals.service.impl;
 
 import com.nearsoft.referrals.model.Job;
+import com.nearsoft.referrals.model.MostReferredJob;
 import com.nearsoft.referrals.repository.GitHubJobRepository;
 import com.nearsoft.referrals.repository.JobRepository;
 import com.nearsoft.referrals.service.JobService;
@@ -26,5 +27,8 @@ public class JobServiceImpl implements JobService {
         return jobRepository.findAll();
     }
 
-
+    @Override
+    public List<MostReferredJob> getMostReferredJob() {
+        return jobRepository.getMostReferredJobs();
+    }
 }
